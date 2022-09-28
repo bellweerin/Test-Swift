@@ -1,0 +1,2 @@
+1. single thread event loop
+    - เมื่อมี request คำสั่งเข้ามา จะทำงานใน event loop วนไปทีละอัน แต่ถ้าเจอ process ที่มี time จะเลือกไปทำ process อื่นก่อน

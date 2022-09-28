@@ -1,8 +1,19 @@
-let express = require("express")
-let index_routes = require("./routes/index")
+const express = require("express")
+let index_router = require("./routes/index")
+let cors = require("cors")
 let app = express()
+let dotenv = require("dotenv")
+dotenv.config()
+
+app.use(cors());
+
+app.use("/", index_router);
+app.use(function (req, res, next) {
+    next(createError(404));
+  });
 
 app.use(express.json())
+
 
 app.use(function (err, req, res, next) {
   
@@ -15,7 +26,14 @@ app.use(function (err, req, res, next) {
     res.render("error");
   });
 
-console.log(app)
+  let port = process.env.PORT
+  console.log(port)
+  
+  app.listen(port, () => {
+    console.log(`Server is running on port: ${process.env.PORT || port}`);
+    
+  });
+  
 
 
 module.exports = app

@@ -4,12 +4,29 @@ DataController = {}
 
 DataController.get = async (req, res) => {
     try {
-        let data = getData()
-       
-        res.json({data})   
+        let request = await axios.get("http://3.1.189.234:8091/data/ttntest")
+        let data = request.data
+        res.json(data)   
         
     } catch (error) {
         res.json(error);
+    }
+}
+DataController.min = async (req, res) => {
+    try {
+       
+    } catch (error) {
+       
+    }
+}
+DataController.all = a
+
+DataController.predict = async (req, res) => {
+    try {
+
+        
+    } catch (error) {
+        
     }
 }
 
