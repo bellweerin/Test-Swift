@@ -5,8 +5,8 @@ DataController = {}
 DataController.get = async (req, res) => {
     try {
         let request = await axios.get("http://3.1.189.234:8091/data/ttntest")
-        let data = request.data
-        res.json(data)   
+        let datas = request.data
+        res.json(datas)   
         
     } catch (error) {
         res.json(error);
@@ -19,7 +19,19 @@ DataController.min = async (req, res) => {
        
     }
 }
-DataController.all = a
+DataController.all = async (req, res) => {
+    try {
+        let datas = await getData()
+        let min_data = await min(datas)
+        let max_data = await max(datas)
+        let avg_data = await avg(datas)
+
+        res.json({datas,min_data,max_data,avg_data})
+        
+    } catch (error) {
+        
+    }
+}
 
 DataController.predict = async (req, res) => {
     try {
@@ -34,7 +46,9 @@ DataController.predict = async (req, res) => {
 
 async function getData() {
     let request = await axios.get("http://3.1.189.234:8091/data/ttntest")
-    console.log(request)
+    let datas = request.data
+         
+    return datas
 
 }
 
