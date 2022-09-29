@@ -2,10 +2,17 @@ const express = require("express")
 let index_router = require("./routes/index")
 let cors = require("cors")
 let app = express()
+let path = require("path");
 let dotenv = require("dotenv")
+
 dotenv.config()
 
 app.use(cors());
+
+app.set("views", path.join(__dirname, "views"));
+// app.set("view engine", "html");
+app.set("view engine", "ejs");
+
 
 app.use("/", index_router);
 app.use(function (req, res, next) {
@@ -13,6 +20,7 @@ app.use(function (req, res, next) {
   });
 
 app.use(express.json())
+
 
 
 app.use(function (err, req, res, next) {
@@ -27,7 +35,7 @@ app.use(function (err, req, res, next) {
   });
 
   let port = process.env.PORT
-  console.log(port)
+  // console.log(port)
   
   app.listen(port, () => {
     console.log(`Server is running on port: ${process.env.PORT || port}`);

@@ -10,6 +10,8 @@ router.post("/predict", (req, res) => DataController.predict(req, res))
 
 //User
 router.post("/login", (req, res) => UserController.logIn(req, res))
+router.post("/approve", (req, res) => UserController.approve(req, res))
+router.get("/user", (req, res) => UserController.get(req, res))
 
 
 
