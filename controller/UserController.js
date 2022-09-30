@@ -5,8 +5,11 @@ UserController = {}
 
 UserController.logIn = async (req, res) => {
     try {
+        console.log(req.body)
         let username = req.body.username
         let password = req.body.password
+
+        console.log(username)
 
         let user = await User.findOne({
             where: {
@@ -35,17 +38,22 @@ UserController.logIn = async (req, res) => {
 UserController.approve = async (req, res) => {
     try {
         let id = req.body.id
-        let user = User.findByPk(id)
+        console.log(id)
+        let user = await User.findByPk(id)
         user.approve = 1
-        user.save()
+        await user.save()
 
-        let check = checkApprove()
+        let check = await checkApprove()
+        console.log(check)
 
-        if (check) {
+        if (check == true) {
             sendMail()
         }
+        let massage = 'approved'
+        res.json(massage)
 
     } catch (error) {
+        console.log(error)
 
     }
 }
@@ -88,11 +96,12 @@ async function sendMail() {
 }
 
 async function checkApprove() {
-    let users = await User.find({
+    let users = await User.findAll({
         where: {
             approve: 1
         }
     })
+    console.log(users.length)
     if (users.length == 3) {
         return true
     }
